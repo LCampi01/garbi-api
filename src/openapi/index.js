@@ -1,24 +1,130 @@
-const pkg = require('../../package.json');
-const api = require('./api');
 const components = require('./components');
+const publicApi = require('./publicApi');
+const api = require('./api');
+const pkg = root_path('package.json');
 
 const {
-    PORT,
-    NODE_ENV
+    PORT, DOMAIN
 } = process.env;
+
 module.exports = {
-    openapi: '3.0.2',
+    openapi: '3.0.1',
     info: {
         title: pkg.description,
         version: pkg.version
     },
     servers: [
-        {url: NODE_ENV === 'development' ? `http://localhost:${PORT}` : process.env.BASE_URL, description: 'Dev server'}
+        { url: `http://localhost:${PORT}` },
+        { url: DOMAIN }
     ],
-    security: [
-        {bearerAuth: []}
-    ],
+    security: [{ bearerAuth: [] }],
     paths: {
+        '/ping': {
+            get: {
+                operationId: 'ping',
+                security: [],
+                responses: {
+                    200: {
+                        description: 'Success',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'object',
+                                    properties: { version: { type: 'string' } }
+                                }
+                            }
+                        }
+                    },
+                    default: {
+                        description: 'Error',
+                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                    }
+                }
+            }
+        },
+        '/ready': {
+            get: {
+                operationId: 'getStatus',
+                security: [],
+                responses: {
+                    200: {
+                        description: 'Success',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'object',
+                                    properties: {
+                                        name: { type: 'string' },
+                                        status: { type: 'string' },
+                                        deps: {
+                                            type: 'array',
+                                            items: {
+                                                type: 'object',
+                                                properties: {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    default: {
+                        description: 'Error',
+                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                    }
+                }
+            }
+        },
+        '/health': {
+            get: {
+                operationId: 'getHealth',
+                security: [],
+                responses: {
+                    200: {
+                        description: 'Success',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'object',
+                                    properties: {
+                                        name: { type: 'string' },
+                                        status: { type: 'string' }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    default: {
+                        description: 'Error',
+                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                    }
+                }
+            }
+        },
+        '/swagger': {
+            get: {
+                operationId: 'getHealth',
+                security: [],
+                responses: {
+                    200: {
+                        description: 'Success',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    type: 'object',
+                                    properties: {}
+                                }
+                            }
+                        }
+                    },
+                    default: {
+                        description: 'Error',
+                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                    }
+                }
+            }
+        },
+        ...publicApi,
         ...api
     },
     components

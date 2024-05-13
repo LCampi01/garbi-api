@@ -1,3 +1,6 @@
-require('dotenv').config();
+require('dotenv').config({path: process.env.NODE_ENV === 'test' ? './test/.env' : `${__dirname}/.env`});
+require('./src/global');
 
-require('./src');
+if (process.env.NODE_ENV !== 'test') {
+    require('./src');
+}

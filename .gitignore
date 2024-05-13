@@ -1,17 +1,11 @@
+**/.*/
 node_modules/
 dist/
-coverage/
-build/
-public/original_xmls/*
-public/translated_xmls/*
-public/updated_xmls/*
-public/original_jsons/*
-public/tmxs/*
-
-# misc
-.DS_Store
-.env
-.env-*
-.idea
+coverage
 *.log
-.history/
+.env
+.nyc_output
+.vscode
+
+!.husky
+!test/.env
