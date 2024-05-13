@@ -1,33 +1,48 @@
+const fs = require('fs');
 const express = require('express');
+const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
-const OpenApiValidator = require('express-openapi-validator');
+const { middleware } = require('express-openapi-validator');
 
+const spdy = require('spdy');
+
+const mongoose = require('./helpers/mongoose');
 const logger = require('./helpers/logger');
+const loggerHttp = require('./helpers/loggerHttp');
+
 const Router = require('./routes');
 const packageJson = require('../package.json');
-const MongoClient = require('./helpers/mongoClient');
+
+let newrelic;
+
+if (process.env.NEW_RELIC_LICENSE_KEY && process.env.NEW_RELIC_APP_NAME) {
+    newrelic = require('newrelic');
+}
 
 const {
-    /*API_DOCS_ENABLED,*/ BODY_LIMIT, NODE_ENV, PORT, APP_URL, CORS_ENABLED
+    BODY_LIMIT, NODE_ENV, PORT
 } = process.env;
 
-const API_DOCS_ENABLED = 'true';
 class App {
     constructor() {
-        this.app = express();
+    /**
+     * @var {express} app
+     */
+        this.app = app;
     }
 
     test() {
-        this.app.use(express.json({limit: BODY_LIMIT}));
-        this.app.use(express.urlencoded({extended: true}));
+        this.app.use(express.json({ limit: BODY_LIMIT }));
+        this.app.use(express.urlencoded({ extended: true }));
         this._routes();
         return this.app;
     }
 
     _onListening() {
-        if(NODE_ENV !== 'test') {
+        if (NODE_ENV !== 'test') {
             logger.info(`Started ${packageJson.name} at port ${PORT} in ${NODE_ENV} environment`);
         }
     }
@@ -37,64 +52,100 @@ class App {
         process.exit;
     }
 
-    async init() {
-        await this._configure();
-        this.app.listen(PORT, this._onListening);
-        this.app.on('error', this._onError);
-        return this.app;
+    init() {
+        if (NODE_ENV !== 'test') {
+            this._configure();
+            if (NODE_ENV === 'production') {
+                if (process.env.CERT_KEY && process.env.CERT_PATH) {
+                    const options = {
+                        key: fs.readFileSync(process.env.CERT_KEY),
+                        cert: fs.readFileSync(process.env.CERT_PATH),
+                        spdy: { protocols: ['h2', 'http/1.1', 'http/2'] }
+                    };
+                    spdy.createServer(options, this.app).listen(PORT, err => {
+                        if (err) {
+                            return this._onError(err);
+                        }
+                        this._onListening();
+                    });
+                } else {
+                    this.app.listen(PORT, this._onListening);
+                    this.app.on('error', this._onError);
+                }
+            } else {
+                this.app.listen(PORT, this._onListening);
+                this.app.on('error', this._onError);
+            }
+            return this.app;
+        }
     }
 
     _configure() {
-        MongoClient.configure();
-        this._middlewares();
+        mongoose.configure();
+        this._middleWares();
         return this._routes();
     }
 
-    _middlewares() {
-        this.app.use(express.json({limit: BODY_LIMIT}));
-        this.app.use(express.urlencoded({extended: true}));
+    _middleWares() {
+        this.app.use(express.json({ limit: BODY_LIMIT }));
+        this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cookieParser());
         if (NODE_ENV !== 'test') {
-            this.app.use(function (req, res, next){
-                res.on('finish', () => logger.info(`${req.method} ${req.url} ${res.statusCode}`));
+            this.app.use(function (req, res, next) {
+                if (newrelic) {
+                    newrelic.setTransactionName(req.url);
+                }
+                function afterResponse() {
+                    res.removeListener('finish', afterResponse);
+                    res.removeListener('close', afterResponse);
+                    loggerHttp.loggerInstance(res);
+                }
+                res.on('finish', afterResponse);
+                res.on('close', afterResponse);
                 next();
             });
         }
         if (NODE_ENV === 'development') {
-            this.app.use(cors({
-                credentials: true,
-                origin: /^http:\/\/localhost/
-            }));
+            this.app.use(
+                cors({
+                    credentials: true,
+                    origin: /^http:\/\/localhost/
+                })
+            );
+        } else if (NODE_ENV !== 'test') {
+            this.app.disable('x-powered-by');
+            this.app.use(helmet());
+            this.app.use(helmet.noSniff());
+            this.app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+            this.app.use(
+                helmet.contentSecurityPolicy({
+                    directives: {
+                        defaultSrc: ['\'self\''],
+                        styleSrc: ['\'self\'', 'maxcdn.bootstrapcdn.com']
+                    }
+                })
+            );
+            const sixtyDaysInSeconds = 15768000;
+            this.app.use(helmet.hsts({ maxAge: sixtyDaysInSeconds }));
+            this.app.use(cors());
         }
-        const corsOptions = {
-            origin: function (origin, callback) {
-                if (APP_URL === origin) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Not allowed by CORS'));
-                }
-            }
-        };
-        if (NODE_ENV === 'production' && CORS_ENABLED === 'true') {
-            this.app.use(cors(corsOptions));
-        }
-        this.app.use(cors());
-        this.app.options('*', cors());
+        return;
     }
 
     _routes() {
-        const apiSpec = require('./openapi');
+        const apiSpec = include('openapi');
+        const options = { swaggerOptions: { validatorUrl: null } };
+        this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec, options));
 
-        if (API_DOCS_ENABLED === 'true') {
-            const options = {swaggerOptions: {validatorUrl: null}};
-            this.app.use(`${process.env.AI_TRANSLATION_ASSIST_PATH}docs`, swaggerUi.serve, swaggerUi.setup(apiSpec, options));
-        }
-        this.app.use(OpenApiValidator.middleware({
-            apiSpec,
-            validateRequests: true,
-            validateResponses: false
-        }));
+        this.app.use(
+            middleware({
+                apiSpec,
+                validateRequests: true,
+                validateResponses: false
+            })
+        );
         Router.configure(this.app);
+        return;
     }
 }
 

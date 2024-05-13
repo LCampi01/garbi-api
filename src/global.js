@@ -1,7 +1,16 @@
-const base_dir = __dirname;
+const pathFunc = require('path');
+global.base_dir = __dirname;
 
-const abs_path = function(path) {
+global.abs_path = function(path) {
     return base_dir + path;
+};
+
+global.abs_root_path = function(path) {
+    return pathFunc.resolve(base_dir, '..', path);
+};
+
+global.root_path = function(path) {
+    return require(pathFunc.resolve(__dirname, '..', path));
 };
 
 global.include = function(file) {

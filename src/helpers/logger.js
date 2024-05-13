@@ -1,3 +1,4 @@
+/* eslint-disable lodash/prefer-lodash-method */
 const winston = require('winston');
 const fs = require('fs');
 const packageJson = require('../../package.json');

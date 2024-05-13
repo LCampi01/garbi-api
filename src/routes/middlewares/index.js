@@ -1,5 +1,4 @@
-const fs = require('fs');
-
-const exportFiles = include('helpers/exportFiles');
-
-module.exports = exportFiles(fs.readdirSync(__dirname), __dirname);
+exports.authenticate = require('./authenticate');
+exports.permission = require('./permission');
+exports.errors = require('./error');
+exports.errorHandler = require('./errorHandler');

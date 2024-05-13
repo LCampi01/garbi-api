@@ -1,66 +1,25 @@
-# AI Course Translation Assist
-
-![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-
-> A translation assistant for an AI course project.
-
-## Table of Contents
-
-- [Description](#description)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Linting](#linting)
-  - [Development](#development)
-  - [Building](#building)
-- [Authors](#authors)
-- [License](#license)
+# Garbi API
 
 ## Description
+Garbi API is a RESTful API designed for various functionalities.
 
-AI Course Translation Assist is a project that provides assistance for translating content related to an AI course. It uses various dependencies and tools for development.
-
-## Getting Started
-
-### Prerequisites
-
-Make sure you have Node.js and npm installed on your system.
-
-### Installation
-
+## Installation
 1. Clone the repository.
-2. Run the following command to install dependencies:
+2. Run `npm install` to install dependencies.
+3. Set up environment variables using `.env` file. Refer to `.env.example` for required variables.
+4. Run `npm start` to start the server.
 
-   ```bash
-   npm install
 ## Usage
+- `npm start`: Starts the server.
+- `npm run dev`: Starts the server with nodemon for development.
+- `npm test`: Runs linting and test coverage.
+- `npm run test:teamcity`: Runs tests with TeamCity reporting.
+- `npm run lint`: Lints the source code.
+- `npm run lint:fix`: Fixes linting issues automatically.
+- `npm run prepare`: Installs husky pre-commit hooks.
 
-### Linting
-
-To lint the source code, you can use ESLint. Run the following command:
-
-    npm run lint
-    
-To automatically fix linting issues, you can use:
-
-    npm run lint:fix    
-     
-## Development
-
-During development, you can use nodemon for automatic server restarts. Run the following command:
-
-    npm run dev
-
-## Building
-
-To build the project, use the provided build script:
-
-    npm run build
-
-## Building
-* Mototech
+## API Documentation
+- Swagger UI: `/api-docs`
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](https://opensource.org/license/mit/) file for details.
+This project is licensed under the MIT License.

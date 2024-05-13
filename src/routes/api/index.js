@@ -1,14 +1,16 @@
 const {Router} = require('express');
-const logger = require('../../helpers/logger');
+const requireDir = require('require-dir');
+const forEach = require('lodash/forEach');
 
-module.exports = router => {
-    require('fs').readdirSync(__dirname + '/').forEach(file => {
-        if (file !== 'index.js') {
-            const fileName = file.replace('.js', '');
-            const module = require(`./${fileName}`);
-            logger.info(`Loading ${fileName} api...`);
-            router.use(`/${fileName}`, module(Router()));
+const logger = include('helpers/logger');
+
+module.exports = function(router) {
+    forEach(
+        requireDir('.', {recurse: true}),
+        (module, name) => {
+            logger.info(`Loading ${name} api...`);
+            router.use(`/${name}`, module(Router()));
         }
-    });
+    );
     return router;
 };
