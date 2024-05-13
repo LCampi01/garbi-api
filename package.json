@@ -50,8 +50,8 @@
       "db/**/*.js",
       "test/**/*.js",
       "src/helpers/*",
-      "src/routes/middleWares/authenticate.js",
-      "src/routes/middleWares/error.js"
+      "src/routes/middlewares/authenticate.js",
+      "src/routes/middlewares/error.js"
     ]
   },
   "dependencies": {

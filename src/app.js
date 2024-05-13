@@ -82,11 +82,11 @@ class App {
 
     _configure() {
         mongoose.configure();
-        this._middleWares();
+        this.middlewares();
         return this._routes();
     }
 
-    _middleWares() {
+    middlewares() {
         this.app.use(express.json({ limit: BODY_LIMIT }));
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cookieParser());

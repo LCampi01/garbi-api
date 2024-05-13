@@ -27,7 +27,7 @@ class NativeEvent {
         );
 
         process.on('warning', warning =>
-            Log.warn(warning.stack)
+            Log.debug(warning.stack)
         );
     }
 }

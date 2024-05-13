@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const get = require('lodash/get');
-const {errorHandler} = require('./middleWares');
+const {errorHandler} = require('./middlewares');
 
 const { StatusController } = include('controllers');
 
