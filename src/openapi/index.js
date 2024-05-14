@@ -14,7 +14,7 @@ module.exports = {
         version: pkg.version
     },
     servers: [
-        {url: `${APP_URL}:${PORT}`, description: APP_DESCRIPTION}
+        {url: `${APP_URL}`, description: APP_DESCRIPTION}
     ],
     security: [
         {bearerAuth: []}
