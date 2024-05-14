@@ -66,11 +66,12 @@ class App {
         }
         const corsOptions = {
             origin: function (origin, callback) {
+                callback(null, true);
+                /*
                 if (APP_URL === origin) {
-                    callback(null, true);
                 } else {
                     callback(new Error('Not allowed by CORS'));
-                }
+                }*/
             }
         };
         if (NODE_ENV === 'production' && CORS_ENABLED === 'true') {
