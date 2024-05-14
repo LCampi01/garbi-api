@@ -1,19 +1,22 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const {
     Schema,
     model
 } = mongoose;
 
-const CompanySchema = Schema({
+const UserSchema = new Schema({
+    companyId: {
+        type: ObjectId,
+        required: true
+    },
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
-    cuit: {
+    surname: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     address: {
         street: {
@@ -31,7 +34,10 @@ const CompanySchema = Schema({
             type: String,
             required: true
         },
-        neighborhood: String
+        neighborhood: {
+            type: String,
+            required: true
+        }
     },
     phone: {
         type: String,
@@ -43,15 +49,20 @@ const CompanySchema = Schema({
         required: true,
         unique: true
     },
-    threshold: {
-        full: {
-            type: Number,
-            required: true
-        },
-        warning: {
-            type: Number,
-            required: true
-        }
+    password: {
+        type: String,
+        required: true
+    },
+    workingDay: {
+        type: [{
+            day: String,
+            startTime: Date,
+            endTime: Date
+        }]
+    },
+    role: {
+        type: String,
+        required: true
     },
     deleted: {
         type: Boolean,
@@ -69,6 +80,6 @@ const CompanySchema = Schema({
         type: Date,
         default: null
     }
-}, { collection: 'company' });
+}, { collection: 'user' });
 
-module.exports = model('Company', CompanySchema);
+module.exports = model('User', UserSchema);

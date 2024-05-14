@@ -1,34 +1,21 @@
-const PATH = '/api/company';
+const PATH = '/api/user';
 
 module.exports = {
     [PATH]: {
         get: {
-            tags: ['Company'],
-            summary: 'Get list of Companies',
-            description: 'Get list of Companies that can be filtered in query params',
+            tags: ['User'],
+            summary: 'Get list of Users',
+            description: 'Get list of Users',
             operationId: 'fetch',
-            parameters: [
-                {
-                    in: 'query',
-                    name: 'cuit',
-                    schema: { type: 'string' },
-                    allowReserved: true
-                },
-                {
-                    in: 'query',
-                    name: 'name',
-                    schema: { type: 'string' },
-                    allowReserved: true
-                }
-            ],
+            parameters: [],
             responses: {
                 200: {
-                    description: 'List of available Companies',
+                    description: 'List of available Users',
                     content: {
                         'application/json': {
                             schema: {
                                 type: 'array',
-                                items: { $ref: '#/components/schemas/Company' }
+                                items: { $ref: '#/components/schemas/User' }
                             }
                         }
                     }
@@ -44,20 +31,20 @@ module.exports = {
             }
         },
         post: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Save a new Company',
-            description: 'Save new Company inside our microservices',
+            tags: ['User'],
+            summary: 'Save a new User',
+            description: 'Save new User inside our microservices',
             operationId: 'saveOneByPost',
             parameters: [],
             requestBody: {
-                description: 'create',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                description: 'User data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -72,10 +59,9 @@ module.exports = {
     },
     [`${PATH}/{_id}`]: {
         get: {
-            tags: ['Company'],
-            security: [{ bearerAuth: [] }],
-            summary: 'Get a Company',
-            description: 'Get a Company based on its ID',
+            tags: ['User'],
+            summary: 'Get a User',
+            description: 'Get a User based on its ID',
             operationId: 'fetchById',
             parameters: [
                 {
@@ -87,8 +73,8 @@ module.exports = {
             ],
             responses: {
                 200: {
-                    description: 'One Company',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    description: 'One User',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -101,10 +87,10 @@ module.exports = {
             }
         },
         put: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Modify an existing Company',
-            description: 'Update an existing Company inside our microservices',
+            tags: ['User'],
+            summary: 'Modify an existing User',
+            description: 'Update an existing User inside our microservices',
             operationId: 'updateOneBy',
             parameters: [
                 {
@@ -115,13 +101,13 @@ module.exports = {
                 }
             ],
             requestBody: {
-                description: 'Company data',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                description: 'User data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -134,10 +120,10 @@ module.exports = {
             }
         },
         delete: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Delete a Company',
-            description: 'Delete a Company inside our microservices',
+            tags: ['User'],
+            summary: 'Delete a User',
+            description: 'Delete a User inside our microservices',
             operationId: 'deleteOne',
             parameters: [
                 {
@@ -150,7 +136,7 @@ module.exports = {
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/User' } } }
                 },
                 400: {
                     description: 'Invalid Request',

@@ -1,19 +1,18 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const {
     Schema,
     model
 } = mongoose;
 
-const CompanySchema = Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
+const ContainerSchema = new Schema({
+    areaId: {
+        type: ObjectId,
+        required: true
     },
-    cuit: {
+    sensorId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     address: {
         street: {
@@ -24,34 +23,24 @@ const CompanySchema = Schema({
             type: String,
             required: true
         },
-        floor: String,
-        department: String,
-        flat: String,
-        postalCode: {
+        neighborhood: {
             type: String,
             required: true
-        },
-        neighborhood: String
+        }
     },
-    phone: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    threshold: {
-        full: {
+    coordinates: {
+        lat: {
             type: Number,
             required: true
         },
-        warning: {
+        lng: {
             type: Number,
             required: true
         }
+    },
+    height: {
+        type: Number,
+        required: true
     },
     deleted: {
         type: Boolean,
@@ -69,6 +58,6 @@ const CompanySchema = Schema({
         type: Date,
         default: null
     }
-}, { collection: 'company' });
+}, { collection: 'container' });
 
-module.exports = model('Company', CompanySchema);
+module.exports = model('Container', ContainerSchema);

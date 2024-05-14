@@ -1,34 +1,37 @@
-const PATH = '/api/company';
+const PATH = '/api/route';
 
 module.exports = {
     [PATH]: {
         get: {
-            tags: ['Company'],
-            summary: 'Get list of Companies',
-            description: 'Get list of Companies that can be filtered in query params',
+            tags: ['Route'],
+            summary: 'Get list of Routes',
+            description: 'Get list of Routes that can be filtered in query params',
             operationId: 'fetch',
             parameters: [
                 {
                     in: 'query',
-                    name: 'cuit',
-                    schema: { type: 'string' },
-                    allowReserved: true
+                    name: 'userId',
+                    schema: { type: 'string' }
                 },
                 {
                     in: 'query',
-                    name: 'name',
-                    schema: { type: 'string' },
-                    allowReserved: true
+                    name: 'managerId',
+                    schema: { type: 'string' }
+                },
+                {
+                    in: 'query',
+                    name: 'containerId',
+                    schema: { type: 'string' }
                 }
             ],
             responses: {
                 200: {
-                    description: 'List of available Companies',
+                    description: 'List of available Routes',
                     content: {
                         'application/json': {
                             schema: {
                                 type: 'array',
-                                items: { $ref: '#/components/schemas/Company' }
+                                items: { $ref: '#/components/schemas/Route' }
                             }
                         }
                     }
@@ -44,20 +47,20 @@ module.exports = {
             }
         },
         post: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Save a new Company',
-            description: 'Save new Company inside our microservices',
+            tags: ['Route'],
+            summary: 'Save a new Route',
+            description: 'Save new Route inside our microservices',
             operationId: 'saveOneByPost',
             parameters: [],
             requestBody: {
                 description: 'create',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -72,10 +75,10 @@ module.exports = {
     },
     [`${PATH}/{_id}`]: {
         get: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Get a Company',
-            description: 'Get a Company based on its ID',
+            tags: ['Route'],
+            summary: 'Get a Route',
+            description: 'Get a Route based on its ID',
             operationId: 'fetchById',
             parameters: [
                 {
@@ -87,8 +90,8 @@ module.exports = {
             ],
             responses: {
                 200: {
-                    description: 'One Company',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    description: 'One Route',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -101,10 +104,10 @@ module.exports = {
             }
         },
         put: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Modify an existing Company',
-            description: 'Update an existing Company inside our microservices',
+            tags: ['Route'],
+            summary: 'Modify an existing Route',
+            description: 'Update an existing Route inside our microservices',
             operationId: 'updateOneBy',
             parameters: [
                 {
@@ -115,13 +118,13 @@ module.exports = {
                 }
             ],
             requestBody: {
-                description: 'Company data',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                description: 'Route data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -134,10 +137,10 @@ module.exports = {
             }
         },
         delete: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Delete a Company',
-            description: 'Delete a Company inside our microservices',
+            tags: ['Route'],
+            summary: 'Delete a Route',
+            description: 'Delete a Route inside our microservices',
             operationId: 'deleteOne',
             parameters: [
                 {
@@ -150,7 +153,7 @@ module.exports = {
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
                 },
                 400: {
                     description: 'Invalid Request',

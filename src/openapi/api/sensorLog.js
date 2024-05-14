@@ -1,34 +1,21 @@
-const PATH = '/api/company';
+const PATH = '/api/sensorLog';
 
 module.exports = {
     [PATH]: {
         get: {
-            tags: ['Company'],
-            summary: 'Get list of Companies',
-            description: 'Get list of Companies that can be filtered in query params',
+            tags: ['SensorLog'],
+            summary: 'Get list of Sensor Logs',
+            description: 'Get list of Sensor Logs',
             operationId: 'fetch',
-            parameters: [
-                {
-                    in: 'query',
-                    name: 'cuit',
-                    schema: { type: 'string' },
-                    allowReserved: true
-                },
-                {
-                    in: 'query',
-                    name: 'name',
-                    schema: { type: 'string' },
-                    allowReserved: true
-                }
-            ],
+            parameters: [],
             responses: {
                 200: {
-                    description: 'List of available Companies',
+                    description: 'List of available Sensor Logs',
                     content: {
                         'application/json': {
                             schema: {
                                 type: 'array',
-                                items: { $ref: '#/components/schemas/Company' }
+                                items: { $ref: '#/components/schemas/SensorLog' }
                             }
                         }
                     }
@@ -44,20 +31,20 @@ module.exports = {
             }
         },
         post: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Save a new Company',
-            description: 'Save new Company inside our microservices',
+            tags: ['SensorLog'],
+            summary: 'Save a new Sensor Log',
+            description: 'Save new Sensor Log inside our microservices',
             operationId: 'saveOneByPost',
             parameters: [],
             requestBody: {
-                description: 'create',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                description: 'Sensor Log data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -72,10 +59,9 @@ module.exports = {
     },
     [`${PATH}/{_id}`]: {
         get: {
-            tags: ['Company'],
-            security: [{ bearerAuth: [] }],
-            summary: 'Get a Company',
-            description: 'Get a Company based on its ID',
+            tags: ['SensorLog'],
+            summary: 'Get a Sensor Log',
+            description: 'Get a Sensor Log based on its ID',
             operationId: 'fetchById',
             parameters: [
                 {
@@ -87,8 +73,8 @@ module.exports = {
             ],
             responses: {
                 200: {
-                    description: 'One Company',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    description: 'One Sensor Log',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -101,10 +87,10 @@ module.exports = {
             }
         },
         put: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Modify an existing Company',
-            description: 'Update an existing Company inside our microservices',
+            tags: ['SensorLog'],
+            summary: 'Modify an existing Sensor Log',
+            description: 'Update an existing Sensor Log inside our microservices',
             operationId: 'updateOneBy',
             parameters: [
                 {
@@ -115,13 +101,13 @@ module.exports = {
                 }
             ],
             requestBody: {
-                description: 'Company data',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                description: 'Sensor Log data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
             },
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
                 },
                 400: {
                     description: 'Invalid Request',
@@ -134,10 +120,10 @@ module.exports = {
             }
         },
         delete: {
-            tags: ['Company'],
             security: [{ bearerAuth: [] }],
-            summary: 'Delete a Company',
-            description: 'Delete a Company inside our microservices',
+            tags: ['SensorLog'],
+            summary: 'Delete a Sensor Log',
+            description: 'Delete a Sensor Log inside our microservices',
             operationId: 'deleteOne',
             parameters: [
                 {
@@ -150,7 +136,7 @@ module.exports = {
             responses: {
                 200: {
                     description: 'Successful operation',
-                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Company' } } }
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
                 },
                 400: {
                     description: 'Invalid Request',
