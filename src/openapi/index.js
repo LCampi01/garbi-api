@@ -4,7 +4,7 @@ const api = require('./api');
 const components = require('./components');
 
 const {
-    BASE_URL, BASE_URL_DESCRIPTION, PORT
+    APP_URL, APP_DESCRIPTION, PORT
 } = process.env;
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         version: pkg.version
     },
     servers: [
-        {url: `${BASE_URL}:${PORT}`, description: BASE_URL_DESCRIPTION}
+        {url: `${APP_URL}:${PORT}`, description: APP_DESCRIPTION}
     ],
     security: [
         {bearerAuth: []}
