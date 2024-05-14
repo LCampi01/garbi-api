@@ -2,7 +2,7 @@ const every = require('lodash/every');
 const concat = require('lodash/concat');
 const mongoose = require('mongoose');
 
-const pkg = root_path('package.json');
+const pkg = require('../../package.json');
 
 /**
  * Creates the status object

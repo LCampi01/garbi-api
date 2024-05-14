@@ -1,8 +1,6 @@
-const parameters = require('./parameters');
 const schemas = require('./schemas');
 
 module.exports = {
-    parameters,
     schemas,
     securitySchemes: {
         bearerAuth: {

@@ -1,6 +1,6 @@
 const CrudController = require('./crud');
 
-const { SensorLogServices: Service } = include('services');
+const { SensorLogService: Service } = include('services');
 
 class SensorLogController extends CrudController {
     constructor() {

@@ -2,9 +2,11 @@ const { UserController } = include('controllers');
 
 module.exports = router => {
     router.route('/')
-        .post(UserController.saveOne)
         .get((...props) => UserController
             .fetch(...props, ['name', 'companyId']));
+
+    router.route('/register')
+        .post(UserController.register);
 
     router.route('/:_id')
         .delete(UserController.deleteOne)

@@ -1,15 +1,24 @@
-const Error = include('helpers/error');
+const {UserService} = include('services');
+const {errorMessages} = include('enums');
 
-module.exports = (req, res, next) => {
+const logger = include('helpers/logger');
+
+module.exports = async (req, res, next) => {
     const header = req.get('Authorization');
     if (!header) {
-        return res.sendStatus(Error.UNAUTHORIZED);
+        return res.send(401).send({message: errorMessages.MUST_SEND_A_TOKEN, code: 401});
     }
     try {
-        req.user = JSON.parse(req.get('user') || '{}');
-        return next();
+        const token = header.replace('Bearer ', '');
+        const {success, user} = await UserService.validateToken(token);
+        console.log(success, user);
+        if (!success || user.deleted) {
+            return res.status(401).send({message: errorMessages.UNAUTHORIZED, code: 401});
+        }
+        req.user = user;
+        logger.info(`${user._id} - ${user.surname} ${user.name}`);
+        next();
     } catch (err) {
-        return res.sendStatus(Error.UNAUTHORIZED);
+        res.status(401).send({message: err.message, code: 401});
     }
-
 };

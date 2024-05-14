@@ -29,7 +29,9 @@ module.exports = {
                     content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
                 }
             }
-        },
+        }
+    },
+    [`${PATH}/register`]: {
         post: {
             security: [{ bearerAuth: [] }],
             tags: ['User'],

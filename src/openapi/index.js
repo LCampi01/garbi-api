@@ -1,26 +1,28 @@
-const components = require('./components');
+const pkg = require('../../package.json');
 const publicApi = require('./publicApi');
 const api = require('./api');
-const pkg = root_path('package.json');
+const components = require('./components');
 
 const {
-    PORT, DOMAIN
+    BASE_URL, BASE_URL_DESCRIPTION, PORT
 } = process.env;
 
 module.exports = {
-    openapi: '3.0.1',
+    openapi: '3.0.2',
     info: {
         title: pkg.description,
         version: pkg.version
     },
     servers: [
-        { url: `http://localhost:${PORT}` },
-        { url: DOMAIN }
+        {url: `${BASE_URL}:${PORT}`, description: BASE_URL_DESCRIPTION}
     ],
-    security: [{ bearerAuth: [] }],
+    security: [
+        {bearerAuth: []}
+    ],
     paths: {
         '/ping': {
             get: {
+                description: 'Endpoint ping',
                 operationId: 'ping',
                 security: [],
                 responses: {
@@ -30,14 +32,14 @@ module.exports = {
                             'application/json': {
                                 schema: {
                                     type: 'object',
-                                    properties: { version: { type: 'string' } }
+                                    properties: {version: {type: 'string'}}
                                 }
                             }
                         }
                     },
                     default: {
                         description: 'Error',
-                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                        content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                     }
                 }
             }
@@ -54,8 +56,8 @@ module.exports = {
                                 schema: {
                                     type: 'object',
                                     properties: {
-                                        name: { type: 'string' },
-                                        status: { type: 'string' },
+                                        name: {type: 'string'},
+                                        status: {type: 'string'},
                                         deps: {
                                             type: 'array',
                                             items: {
@@ -70,7 +72,7 @@ module.exports = {
                     },
                     default: {
                         description: 'Error',
-                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                        content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                     }
                 }
             }
@@ -87,8 +89,8 @@ module.exports = {
                                 schema: {
                                     type: 'object',
                                     properties: {
-                                        name: { type: 'string' },
-                                        status: { type: 'string' }
+                                        name: {type: 'string'},
+                                        status: {type: 'string'}
                                     }
                                 }
                             }
@@ -96,14 +98,14 @@ module.exports = {
                     },
                     default: {
                         description: 'Error',
-                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                        content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                     }
                 }
             }
         },
-        '/swagger': {
+        '/status': {
             get: {
-                operationId: 'getHealth',
+                operationId: 'getAppStatus',
                 security: [],
                 responses: {
                     200: {
@@ -112,14 +114,16 @@ module.exports = {
                             'application/json': {
                                 schema: {
                                     type: 'object',
-                                    properties: {}
+                                    properties: {
+                                        status: {type: 'string'}
+                                    }
                                 }
                             }
                         }
                     },
                     default: {
                         description: 'Error',
-                        content: {'application/json': {schema: { $ref: '#/components/schemas/Error' }}}
+                        content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                     }
                 }
             }

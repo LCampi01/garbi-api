@@ -1,6 +1,6 @@
 const CrudController = require('./crud');
 
-const { RouteServices: Service } = include('services');
+const { RouteService: Service } = include('services');
 
 class RouteController extends CrudController {
     constructor() {

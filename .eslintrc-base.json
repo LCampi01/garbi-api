@@ -2,39 +2,21 @@
   "extends": [
     "eslint:recommended"
   ],
-  "parser": "@babel/eslint-parser",
   "env": {
     "node": true,
     "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 8,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "requireConfigFile": false
   },
   "rules": {
-    "indent": [
-      "error",
-      4,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "eol-last": [
-      "error"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    "indent": ["error", 4, {"SwitchCase": 1}],
+    "linebreak-style": ["error", "windows"],
+    "eol-last": ["error"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
     "max-len": ["error", {
       "code": 120,
       "ignoreStrings": true,
@@ -48,15 +30,7 @@
     "no-multi-spaces": "error",
     "arrow-parens": ["error", "as-needed"],
     "no-var": "error",
-    "no-console": ["error", {"allow": ["warn", "error"]}],
     "require-await": "error",
-    "object-curly-newline": ["error", {
-      "ObjectExpression": { "multiline": true, "minProperties": 2 },
-      "ObjectPattern": { "multiline": true, "minProperties": 2 },
-      "ImportDeclaration": { "multiline": true, "minProperties": 2 },
-      "ExportDeclaration": { "multiline": true, "minProperties": 2 }
-    }],
-    "object-property-newline": ["error"],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "quote-props": ["error", "as-needed"],
     "sort-imports": ["error", {
