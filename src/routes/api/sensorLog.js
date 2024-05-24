@@ -2,7 +2,6 @@ const { SensorLogController } = include('controllers');
 
 module.exports = router => {
     router.route('/')
-        .post(SensorLogController.saveOne)
         .get((...props) => SensorLogController
             .fetch(...props, []));
 

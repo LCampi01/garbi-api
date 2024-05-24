@@ -14,9 +14,19 @@ const SensorLogSchema = new Schema({
         type: Number,
         required: true
     },
-    batery: {
+    battery: {
         type: Number,
         required: true
+    },
+    coordinates: {
+        lat: {
+            type: Number,
+            required: true
+        },
+        lng: {
+            type: Number,
+            required: true
+        }
     },
     createdAt: {
         type: Date,

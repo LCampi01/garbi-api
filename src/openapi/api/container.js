@@ -15,7 +15,7 @@ module.exports = {
                 },
                 {
                     in: 'query',
-                    name: 'batery',
+                    name: 'battery',
                     schema: { type: 'string' }
                 },
                 {

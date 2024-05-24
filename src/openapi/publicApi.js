@@ -85,6 +85,34 @@ module.exports = {
             }
         }
     },
+    [`${PATH}/sensorLog`]: {
+        post: {
+            security: [],
+            tags: ['SensorLog'],
+            summary: 'Save a new Sensor Log',
+            description: 'Save new Sensor Log inside our microservices',
+            operationId: 'saveOneByPost',
+            parameters: [],
+            requestBody: {
+                description: 'Sensor Log data',
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLogPost' } } }
+            },
+            responses: {
+                200: {
+                    description: 'Successful operation',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/SensorLog' } } }
+                },
+                400: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                },
+                default: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                }
+            }
+        }
+    },
     [`${PATH}/change_password`]: {
         post: {
             tags: ['User'],
