@@ -14,17 +14,8 @@ class SensorLogController extends CrudController {
             if (!container) {
                 return res.status(404).json({ error: 'Contenedor no encontrado' });
             }
-            const transformedRequest = {
-                containerId: container._id,
-                capacity: req.body.distance / container.height,
-                battery: req.body.battery,
-                coordinates: {
-                    lat: req.body.coordinates.lat,
-                    lng: req.body.coordinates.lng
-                }
-            };
 
-            const result = await this._service.saveOne(req.params, transformedRequest, req.method);
+            const result = await this._service.saveLog(req.body, container);
             res.send(result);
         } catch (err) {
             next(err);

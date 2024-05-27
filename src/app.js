@@ -66,6 +66,7 @@ class App {
         }
         const corsOptions = {
             origin: function (origin, callback) {
+                //TODO check this
                 callback(null, true);
                 /*
                 if (APP_URL === origin) {

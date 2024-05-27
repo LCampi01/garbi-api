@@ -42,6 +42,16 @@ const ContainerSchema = new Schema({
         type: Number,
         required: true
     },
+    battery: {
+        type: Number,
+        required: true,
+        default: 100
+    },
+    capacity: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     deleted: {
         type: Boolean,
         default: false

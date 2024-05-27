@@ -17,11 +17,10 @@ class UserService extends Crud {
         const {email, password} = user;
         const hash = await bcrypt.hash(password, 13);
         if(hash) {
-            const newUser = await this.saveOne({
+            await this.saveOne({}, {
                 ...user,
                 password: hash
             });
-            console.log(newUser);
             return {
                 token: jwt.sign({email}, SECRET, {expiresIn: '1d'}),
                 success: true,
