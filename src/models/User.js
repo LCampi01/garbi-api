@@ -18,27 +18,6 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    address: {
-        street: {
-            type: String,
-            required: true
-        },
-        number: {
-            type: String,
-            required: true
-        },
-        floor: String,
-        department: String,
-        flat: String,
-        postalCode: {
-            type: String,
-            required: true
-        },
-        neighborhood: {
-            type: String,
-            required: true
-        }
-    },
     phone: {
         type: String,
         required: true,

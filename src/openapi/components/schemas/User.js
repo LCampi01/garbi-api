@@ -1,26 +1,14 @@
 module.exports = {
     type: 'object',
-    required: ['companyId', 'name', 'surname', 'address', 'phone', 'email', 'password', 'role'],
+    required: ['companyId', 'name', 'surname', 'phone', 'email', 'password', 'role'],
     properties: {
         companyId: { type: 'string' },
         name: { type: 'string' },
         surname: { type: 'string' },
-        address: {
-            type: 'object',
-            properties: {
-                street: { type: 'string' },
-                number: { type: 'string' },
-                floor: { type: 'string' },
-                department: { type: 'string' },
-                flat: { type: 'string' },
-                postalCode: { type: 'string' },
-                neighborhood: { type: 'string' }
-            },
-            required: ['street', 'number', 'postalCode', 'neighborhood']
-        },
         phone: { type: 'string' },
         email: { type: 'string' },
         password: { type: 'string' },
+        imagePath: { type: 'string' },
         workingDay: {
             type: 'array',
             items: {

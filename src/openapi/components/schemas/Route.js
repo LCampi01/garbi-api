@@ -2,7 +2,10 @@ module.exports = {
     type: 'object',
     required: ['collectorId', 'managerId', 'status'],
     properties: {
-        collectorId: { type: 'string' },
+        collectorId: {
+            type: 'array',
+            items: { type: 'string' }
+        },
         managerId: { type: 'string' },
         coordinates: {
             type: 'array',

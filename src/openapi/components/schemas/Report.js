@@ -1,7 +1,8 @@
 module.exports = {
     type: 'object',
     required: [
-        'observation',
+        'title',
+        'description',
         'address',
         'phone',
         'email',
@@ -12,7 +13,9 @@ module.exports = {
         userId: { type: 'string' },
         containerId: { type: 'string' },
         managerId: { type: 'string' },
+        title: { type: 'string' },
         observation: { type: 'string' },
+        description: { type: 'string' },
         address: {
             type: 'object',
             properties: {
@@ -30,7 +33,15 @@ module.exports = {
             items: {
                 type: 'object',
                 properties: {
-                    status: { type: 'string' },
+                    status: {
+                        type: 'string',
+                        enum: [
+                            'NUEVO',
+                            'EN_REVISION',
+                            'RESUELTO',
+                            'RECHAZADO'
+                        ]
+                    },
                     updatedAt: {
                         type: 'string',
                         format: 'date-time'
@@ -40,7 +51,16 @@ module.exports = {
             },
             minItems: 1
         },
-        type: { type: 'string' }
+        type: {
+            type: 'string',
+            enum: [
+                'CONTENEDOR_ROTO',
+                'CONTENEDOR_SUCIO',
+                'CONTENEDOR_FALTANTE',
+                'BASURA_EN_LA_CALLE',
+                'OTROS'
+            ]
+        }
 
     }
 };

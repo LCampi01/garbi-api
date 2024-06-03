@@ -7,7 +7,7 @@ const {
 
 const RouteSchema = new Schema({
     collectorId: {
-        type: ObjectId,
+        type: [ObjectId],
         required: true
     },
     managerId: {

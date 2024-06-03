@@ -27,9 +27,6 @@ module.exports = {
             },
             required: ['lat', 'lng']
         },
-        height: { type: 'number' },
-        battery: { type: 'number', default: 100 },
-        capacity: { type: 'number', default: 0 },
-        deleted: { type: 'boolean', default: false }
+        height: { type: 'number' }
     }
 };

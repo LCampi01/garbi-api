@@ -55,7 +55,7 @@ module.exports = {
             parameters: [],
             requestBody: {
                 description: 'create',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Container' } } }
+                content: { 'application/json': { schema: { $ref: '#/components/schemas/ContainerPost' } } }
             },
             responses: {
                 200: {

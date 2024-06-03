@@ -18,7 +18,14 @@ const ReportSchema = new Schema({
         type: ObjectId,
         default: null
     },
+    title: {
+        type: String,
+        required: true
+    },
     observation: {
+        type: String
+    },
+    description: {
         type: String,
         required: true
     },
@@ -50,12 +57,25 @@ const ReportSchema = new Schema({
     status: {
         type: [{
             status: String,
+            enum: [
+                'NUEVO',
+                'EN_REVISION',
+                'RESUELTO',
+                'RECHAZADO'
+            ],
             updatedAt: Date
         }],
         required: true
     },
     type: {
         type: String,
+        enum: [
+            'CONTENEDOR_ROTO',
+            'CONTENEDOR_SUCIO',
+            'CONTENEDOR_FALTANTE',
+            'BASURA_EN_LA_CALLE',
+            'OTROS'
+        ],
         required: true
     },
     createdAt: {
