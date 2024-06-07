@@ -30,8 +30,19 @@ module.exports = {
                     content: {
                         'application/json': {
                             schema: {
-                                type: 'array',
-                                items: { $ref: '#/components/schemas/Route' }
+                                type: 'object',
+                                properties: {
+                                    documents: {
+                                        type: 'array',
+                                        items: { $ref: '#/components/schemas/Route' }
+                                    },
+                                    total: {
+                                        type: 'integer'
+                                    },
+                                    size: {
+                                        type: 'integer'
+                                    }
+                                }
                             }
                         }
                     }

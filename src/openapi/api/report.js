@@ -25,8 +25,19 @@ module.exports = {
                     content: {
                         'application/json': {
                             schema: {
-                                type: 'array',
-                                items: { $ref: '#/components/schemas/Report' }
+                                type: 'object',
+                                properties: {
+                                    documents: {
+                                        type: 'array',
+                                        items: { $ref: '#/components/schemas/Report' }
+                                    },
+                                    total: {
+                                        type: 'integer'
+                                    },
+                                    size: {
+                                        type: 'integer'
+                                    }
+                                }
                             }
                         }
                     }

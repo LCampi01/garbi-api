@@ -9,6 +9,7 @@ module.exports = {
         'threshold'
     ],
     properties: {
+        _id: { type: 'string' },
         name: { type: 'string' },
         cuit: { type: 'string' },
         address: {

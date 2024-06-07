@@ -8,6 +8,7 @@ module.exports = {
         'height'
     ],
     properties: {
+        _id: { type: 'string' },
         areaId: { type: 'string' },
         sensorId: { type: 'string' },
         address: {

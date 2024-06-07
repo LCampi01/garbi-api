@@ -4,11 +4,11 @@ module.exports = {
         'userId',
         'title',
         'description',
-        'phone',
         'email',
         'type'
     ],
     properties: {
+        _id: { type: 'string' },
         userId: { type: 'string' },
         containerId: { type: 'string' },
         managerId: { type: 'string' },

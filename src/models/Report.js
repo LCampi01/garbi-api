@@ -43,14 +43,11 @@ const ReportSchema = new Schema({
     },
     imagePath: {type: String},
     phone: {
-        type: String,
-        required: true,
-        unique: true
+        type: String
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     status: {
         type: [{

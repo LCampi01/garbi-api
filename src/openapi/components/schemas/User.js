@@ -2,6 +2,7 @@ module.exports = {
     type: 'object',
     required: ['companyId', 'name', 'surname', 'phone', 'email', 'password', 'role'],
     properties: {
+        _id: { type: 'string' },
         companyId: { type: 'string' },
         name: { type: 'string' },
         surname: { type: 'string' },

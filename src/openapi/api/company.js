@@ -27,8 +27,19 @@ module.exports = {
                     content: {
                         'application/json': {
                             schema: {
-                                type: 'array',
-                                items: { $ref: '#/components/schemas/Company' }
+                                type: 'object',
+                                properties: {
+                                    documents: {
+                                        type: 'array',
+                                        items: { $ref: '#/components/schemas/Company' }
+                                    },
+                                    total: {
+                                        type: 'integer'
+                                    },
+                                    size: {
+                                        type: 'integer'
+                                    }
+                                }
                             }
                         }
                     }
