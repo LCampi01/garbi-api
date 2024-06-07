@@ -8,7 +8,8 @@ const {
 const ReportSchema = new Schema({
     userId: {
         type: ObjectId,
-        default: null
+        default: null,
+        required: true
     },
     containerId: {
         type: ObjectId,
@@ -31,16 +32,13 @@ const ReportSchema = new Schema({
     },
     address: {
         street: {
-            type: String,
-            required: true
+            type: String
         },
         number: {
-            type: String,
-            required: true
+            type: String
         },
         neighborhood: {
-            type: String,
-            required: true
+            type: String
         }
     },
     imagePath: {type: String},
@@ -64,8 +62,7 @@ const ReportSchema = new Schema({
                 'RECHAZADO'
             ],
             updatedAt: Date
-        }],
-        required: true
+        }]
     },
     type: {
         type: String,

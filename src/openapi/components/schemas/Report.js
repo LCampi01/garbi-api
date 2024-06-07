@@ -1,12 +1,11 @@
 module.exports = {
     type: 'object',
     required: [
+        'userId',
         'title',
         'description',
-        'address',
         'phone',
         'email',
-        'status',
         'type'
     ],
     properties: {
@@ -22,8 +21,7 @@ module.exports = {
                 street: { type: 'string' },
                 number: { type: 'string' },
                 neighborhood: { type: 'string' }
-            },
-            required: ['street', 'number', 'neighborhood']
+            }
         },
         imagePath: { type: 'string' },
         phone: { type: 'string' },

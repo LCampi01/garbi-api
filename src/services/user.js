@@ -82,9 +82,20 @@ class UserService extends Crud {
         if(user) {
             const {password: userPassword} = user;
             const isMatch = await bcrypt.compare(password, userPassword);
+            const payload = {
+                user: {
+                    _id: user._id,
+                    companyId: user.companyId,
+                    name: user.name,
+                    surname: user.surname,
+                    phone: user.phone,
+                    email: user.email,
+                    role: user.role
+                }
+            };
             if(isMatch)
                 return {
-                    token: jwt.sign({email}, SECRET, {expiresIn: '1d'}),
+                    token: jwt.sign(payload, SECRET, {expiresIn: '1d'}),
                     success: true,
                     message: 'AUTHENTICATED'
                 };
