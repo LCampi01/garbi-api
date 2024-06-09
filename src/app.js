@@ -9,7 +9,7 @@ const Router = require('./routes');
 const packageJson = require('../package.json');
 const Mongoose = require('./helpers/mongoose');
 const {
-    API_DOCS_ENABLED, BODY_LIMIT, NODE_ENV, PORT, APP_URL, CORS_ENABLED
+    API_DOCS_ENABLED, BODY_LIMIT, NODE_ENV, PORT, CORS_ENABLED
 } = process.env;
 
 class App {

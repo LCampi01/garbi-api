@@ -43,6 +43,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    termsAndConditions: {
+        type: Boolean,
+        default: false
+    },
     deleted: {
         type: Boolean,
         default: false
