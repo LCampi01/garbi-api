@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const {
     Schema,
@@ -7,7 +6,7 @@ const {
 
 const SensorLogSchema = new Schema({
     containerId: {
-        type: ObjectId,
+        type: String,
         required: true
     },
     capacity: {

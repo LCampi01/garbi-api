@@ -2,6 +2,23 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
+const StatusSchema = new Schema({
+    status: {
+        type: String,
+        enum: [
+            'NUEVO',
+            'EN_REVISION',
+            'RESUELTO',
+            'RECHAZADO'
+        ],
+        default: 'NUEVO'
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
+}, { _id: false });
+
 const ReportSchema = new Schema({
     userId: {
         type: ObjectId,
@@ -9,7 +26,7 @@ const ReportSchema = new Schema({
         required: true
     },
     containerId: {
-        type: ObjectId,
+        type: String,
         default: null
     },
     managerId: {
@@ -24,8 +41,7 @@ const ReportSchema = new Schema({
         type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
     address: {
         street: {
@@ -47,21 +63,8 @@ const ReportSchema = new Schema({
         required: true
     },
     status: {
-        type: [{
-            status: {
-                type: String,
-                enum: [
-                    'NUEVO',
-                    'EN_REVISION',
-                    'RESUELTO',
-                    'RECHAZADO'
-                ]
-            },
-            updatedAt: {
-                type: Date,
-                default: Date.now
-            }
-        }]
+        type: [StatusSchema],
+        default: [{ status: 'NUEVO', updatedAt: Date.now() }]
     },
     type: {
         type: String,

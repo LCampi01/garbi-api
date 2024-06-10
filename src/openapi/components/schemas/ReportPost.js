@@ -4,7 +4,6 @@ module.exports = {
         'userId',
         'containerId',
         'title',
-        'description',
         'email',
         'type'
     ],

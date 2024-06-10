@@ -6,6 +6,12 @@ const {
 } = mongoose;
 
 const ContainerSchema = new Schema({
+    _id: {
+        type: String,
+        required: true,
+        minlength: 6,
+        maxlength: 6
+    },
     areaId: {
         type: ObjectId,
         required: true

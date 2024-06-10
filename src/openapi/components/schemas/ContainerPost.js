@@ -1,6 +1,7 @@
 module.exports = {
     type: 'object',
     required: [
+        '_id',
         'areaId',
         'sensorId',
         'address',
@@ -8,6 +9,7 @@ module.exports = {
         'height'
     ],
     properties: {
+        _id: { type: 'string' },
         areaId: { type: 'string' },
         sensorId: { type: 'string' },
         address: {
