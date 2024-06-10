@@ -1,5 +1,7 @@
 module.exports = {
-    SENT: 'Enviado',
-    IN_REVIEW: 'En revisión',
-    DONE: 'Completado'
+    NEW: 'NUEVO',
+    IN_REVIEW: 'EN REVISIÓN',
+    SOLVED: 'RESUELTO',
+    REJECTED: 'RECHAZADO',
+    CANCEL: 'ANULADO'
 };

@@ -3,29 +3,26 @@ const nodemailer = require('nodemailer');
 class MailerService {
     constructor() {
         this.auth = {
-            user: 'garbi.reports@outlook.com',
-            pass: 'garbireports1999'
+            user: process.env.MAILER_EMAIL,
+            pass: process.env.MAILER_PASSWORD
         },
         this.transporter = nodemailer.createTransport({
-            service: 'hotmail',
+            service: 'Gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: this.auth
         });
     }
 
-    async newReportEmail(to, code) {
-        try {
-            const options = {
-                from: this.auth.user,
-                to,
-                subject: `¡Solicitud #${code} recibida!`,
-                html: `<!DOCTYPE html>
+    generateBody(body) {
+        return `<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte/Queja</title>
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -76,33 +73,105 @@ class MailerService {
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>¡Solicitud recibida!</h1>
-        </div>
-        <div class="content">
-            <p>Hola,</p>
-            <p>Estamos escribiendo para informar que su solicitud ha sido recibida satisfactoriamente.</p>
-            <p>En breves, será analizada por un supervisor. </p>
-            <p>Agradecemos su participación.</p>
-            <p>Saludos cordiales,<br>El equipo de garbi</p>
-        </div>
-        <div class="signature">
-            <img src="https://i.imgur.com/fI8Gd9l.jpeg" alt="Firma">
-        </div>
-    </div>
-</body>
-</html>
-`
+${body}
+</html>`;
+    }
+
+    async newReportEmail(to, code) {
+        try {
+            const options = {
+                from: this.auth.user,
+                to,
+                subject: `¡Solicitud #${code} recibida!`,
+                html: this.generateBody(`<body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>¡Solicitud recibida!</h1>
+                        </div>
+                        <div class="content">
+                            <p>Hola,</p>
+                            <p>Estamos escribiendo para informar que su solicitud ha sido recibida satisfactoriamente.</p>
+                            <p>En breves, será analizada por un supervisor. </p>
+                            <p>Agradecemos su participación.</p>
+                            <p>Saludos cordiales,<br>El equipo de garbi</p>
+                        </div>
+                        <div class="signature">
+                            <img src="https://i.imgur.com/fI8Gd9l.jpeg" alt="Firma">
+                        </div>
+                    </div>
+                </body>`)
             };
 
             return await this.transporter.sendMail(options);
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            throw new Error(error);
         }
-        return ;
     }
+
+    async setReportInRevision(to, code) {
+        try {
+            const options = {
+                from: this.auth.user,
+                to,
+                subject: `¡Novedades en la solicitud #${code}!`,
+                html: this.generateBody(`<body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>¡Solicitud en revisión!</h1>
+                        </div>
+                        <div class="content">
+                            <p>Hola,</p>
+                            <p>Estamos escribiendo para informar que su solicitud está en proceso de revisión.</p>
+                            <p>En breves, tendrá una respuesta del supervisor. </p>
+                            <p>Agradecemos su espera.</p>
+                            <p>Saludos cordiales,<br>El equipo de garbi</p>
+                        </div>
+                        <div class="signature">
+                            <img src="https://i.imgur.com/fI8Gd9l.jpeg" alt="Firma">
+                        </div>
+                    </div>
+                </body>`)
+            };
+
+            return await this.transporter.sendMail(options);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    async closeReport(to, code, rejected, observation) {
+        try {
+            const options = {
+                from: this.auth.user,
+                to,
+                subject: `¡Solicitud #${code} cerrada!`,
+                html: this.generateBody(`<body>
+                    <div class="container">
+                        <div class="header">
+                            <h1>¡Solicitud ${rejected ? 'rechazada' : 'resuelta'}!</h1>
+                        </div>
+                        <div class="content">
+                            <p>Hola,</p>
+                            <p>Estamos escribiendo para informar que su solicitud ha sido ${rejected ? 'rechazada' : 'resuelta'}.</p>
+                            <p>El supervisor ha dejado el siguiente comentario: </p>
+                            <p> "${observation}" </p>
+                            <p>Agradecemos su espera.</p>
+                            <p>Saludos cordiales,<br>El equipo de garbi</p>
+                        </div>
+                        <div class="signature">
+                            <img src="https://i.imgur.com/fI8Gd9l.jpeg" alt="Firma">
+                        </div>
+                    </div>
+                </body>`)
+            };
+
+            return await this.transporter.sendMail(options);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
 }
 
 module.exports = new MailerService();

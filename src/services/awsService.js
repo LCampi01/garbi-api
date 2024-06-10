@@ -102,6 +102,7 @@ class AwsService {
             throw new Error(err);
         }
     }
+
 }
 
 module.exports = new AwsService();

@@ -65,6 +65,7 @@ module.exports = {
                     'multipart/form-data': {
                         schema: {
                             type: 'object',
+                            required: ['image', 'report'],
                             properties: {
                                 report: { $ref: '#/components/schemas/ReportPost' },
                                 image: {
@@ -173,6 +174,133 @@ module.exports = {
                 200: {
                     description: 'Successful operation',
                     content: { 'application/json': { schema: { $ref: '#/components/schemas/Report' } } }
+                },
+                400: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                },
+                default: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                }
+            }
+        }
+    },
+    [`${PATH}/report_in_revision`]: {
+        post: {
+            tags: ['Report'],
+            summary: 'Set Report in Revision',
+            description: 'Set a Report in Revision status',
+            operationId: 'setReportInRevision',
+            parameters: [],
+            requestBody: {
+                description: 'Report Manager ID',
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                reportId: {
+                                    type: 'string'
+                                },
+                                managerId: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            responses: {
+                200: {
+                    description: 'Successful operation',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/MessageResponse' } } }
+                },
+                400: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                },
+                default: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                }
+            }
+        }
+    },
+    [`${PATH}/close_report`]: {
+        post: {
+            tags: ['Report'],
+            summary: 'Close report',
+            description: 'Close specific report',
+            operationId: 'closeReport',
+            parameters: [],
+            requestBody: {
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                reportId: {
+                                    type: 'string'
+                                },
+                                managerId: {
+                                    type: 'string'
+                                },
+                                rejected: {
+                                    type: 'boolean'
+                                },
+                                observation: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            responses: {
+                200: {
+                    description: 'Successful operation',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/MessageResponse' } } }
+                },
+                400: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                },
+                default: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                }
+            }
+        }
+    },
+    [`${PATH}/cancel_report`]: {
+        post: {
+            tags: ['Report'],
+            summary: 'Cancel report',
+            description: 'Cancel specific report',
+            operationId: 'cancelReport',
+            parameters: [],
+            requestBody: {
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                reportId: {
+                                    type: 'string'
+                                },
+                                userId: {
+                                    type: 'string'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            responses: {
+                200: {
+                    description: 'Successful operation',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/MessageResponse' } } }
                 },
                 400: {
                     description: 'Invalid Request',

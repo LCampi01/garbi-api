@@ -1,4 +1,7 @@
 module.exports = {
-    BROKEN: 'Contenedor roto',
-    DIRTY: 'Contenedor sucio'
+    BROKEN: 'CONTENEDOR_ROTO',
+    DIRTY: 'CONTENEDOR_SUCIO',
+    MISSINGCONTAINER: 'CONTENEDOR_FALTANTE',
+    DIRTYSTREET: 'BASURA_EN_LA_CALLE',
+    OTHERS: 'OTROS'
 };

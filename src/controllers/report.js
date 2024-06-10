@@ -1,29 +1,56 @@
 const CrudController = require('./crud');
 
 const { ReportService: Service } = include('services');
-const AwsService = require('../services/AwsService');
-const MailerService = require('../services/mailer');
 class ReportController extends CrudController {
     constructor() {
         super(Service);
         this.saveOneWithImage = this.saveOneWithImage.bind(this);
+        this.setReportInRevision = this.setReportInRevision.bind(this);
+        this.cancelReport = this.cancelReport.bind(this);
+        this.closeReport = this.closeReport.bind(this);
     }
 
     async saveOneWithImage(req, res, next) {
         try {
-            const reportData = JSON.parse(req.body.report);
+            const report = JSON.parse(req.body.report);
             const file = req.files[0];
-            const document = file.buffer;
-            const imageFileName = `${Date.now()}`;
+            const response = await this._service.saveOneWithImage(report, file);
+            res.send(response);
+        } catch (err) {
+            next(err);
+        }
+    }
 
-            await AwsService.uploadDocument(imageFileName, document, 'jpg', 'reports');
-            const payload = {
-                ...reportData,
-                imagePath: `reports/${imageFileName}.jpg`
-            };
-            const result = await this._service.saveOne({}, payload);
-            await MailerService.newReportEmail(payload.email, result.code);
-            res.send({...result._doc, success: true});
+    async setReportInRevision(req, res, next) {
+        try {
+            const reportId = req.body.reportId;
+            const managerId = req.body.managerId;
+            const response = await this._service.setReportInRevision(reportId, managerId);
+            res.send(response);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async closeReport(req, res, next) {
+        try {
+            const reportId = req.body.reportId;
+            const managerId = req.body.managerId;
+            const rejected = req.body.rejected;
+            const observation = req.body.observation;
+            const response = await this._service.closeReport(reportId, managerId, rejected, observation);
+            res.send(response);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async cancelReport(req, res, next) {
+        try {
+            const reportId = req.body.reportId;
+            const userId = req.body.userId;
+            const response = await this._service.cancelReport(reportId, userId);
+            res.send(response);
         } catch (err) {
             next(err);
         }

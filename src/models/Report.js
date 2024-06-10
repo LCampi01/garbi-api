@@ -2,16 +2,17 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 const { v4: uuidv4 } = require('uuid');
+const reportStatus = require('../enums/reportStatus');
+const reportType = require('../enums/reportType');
 
 const StatusSchema = new Schema({
+    userId: {
+        type: ObjectId,
+        default: null
+    },
     status: {
         type: String,
-        enum: [
-            'NUEVO',
-            'EN_REVISION',
-            'RESUELTO',
-            'RECHAZADO'
-        ],
+        enum: Object.values(reportStatus),
         default: 'NUEVO'
     },
     updatedAt: {
@@ -70,13 +71,7 @@ const ReportSchema = new Schema({
     },
     type: {
         type: String,
-        enum: [
-            'CONTENEDOR_ROTO',
-            'CONTENEDOR_SUCIO',
-            'CONTENEDOR_FALTANTE',
-            'BASURA_EN_LA_CALLE',
-            'OTROS'
-        ],
+        enum: Object.values(reportType),
         required: true
     },
     createdAt: {
