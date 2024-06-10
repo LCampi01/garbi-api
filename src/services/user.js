@@ -90,12 +90,14 @@ class UserService extends Crud {
                     surname: user.surname,
                     phone: user.phone,
                     email: user.email,
-                    role: user.role
+                    role: user.role,
+                    termsAndConditions: user.termsAndConditions
                 }
             };
             if(isMatch)
                 return {
                     token: jwt.sign(payload, SECRET, {expiresIn: '1d'}),
+                    termsAndConditions: user.termsAndConditions,
                     success: true,
                     message: 'AUTHENTICATED'
                 };

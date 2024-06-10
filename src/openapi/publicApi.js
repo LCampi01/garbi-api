@@ -62,8 +62,9 @@ module.exports = {
                             schema: {
                                 type: 'object',
                                 properties: {
-                                    accessToken: { type: 'string' },
-                                    tokenType: { type: 'string', default: 'Bearer' }
+                                    message: { type: 'string' },
+                                    termsAndConditions: {type: 'boolean'},
+                                    token: { type: 'string', default: 'Bearer' }
                                 }
                             }
                         }
