@@ -17,13 +17,17 @@ class ReportService extends Crud {
 
     async saveOneWithImage(report, file) {
         try {
-            const document = file.buffer;
-            const imageFileName = `${Date.now()}`;
+            let imagePath = null;
+            if(file) {
+                const document = file.buffer;
+                const imageFileName = `${Date.now()}`;
+                await AwsService.uploadDocument(imageFileName, document, 'jpg', 'reports');
+                imagePath = `reports/${imageFileName}.jpg`;
+            }
 
-            await AwsService.uploadDocument(imageFileName, document, 'jpg', 'reports');
             const payload = {
                 ...report,
-                imagePath: `reports/${imageFileName}.jpg`
+                imagePath
             };
             const result = await this.saveOne({}, payload);
             await MailerService.newReportEmail(payload.email, result.code);

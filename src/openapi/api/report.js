@@ -65,7 +65,7 @@ module.exports = {
                     'multipart/form-data': {
                         schema: {
                             type: 'object',
-                            required: ['image', 'report'],
+                            required: ['report'],
                             properties: {
                                 report: { $ref: '#/components/schemas/ReportPost' },
                                 image: {
