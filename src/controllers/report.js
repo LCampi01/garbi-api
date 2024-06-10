@@ -2,7 +2,7 @@ const CrudController = require('./crud');
 
 const { ReportService: Service } = include('services');
 const AwsService = require('../services/AwsService');
-
+const MailerService = require('../services/mailer');
 class ReportController extends CrudController {
     constructor() {
         super(Service);
@@ -12,7 +12,6 @@ class ReportController extends CrudController {
     async saveOneWithImage(req, res, next) {
         try {
             const reportData = JSON.parse(req.body.report);
-            console.log(reportData);
             const file = req.files[0];
             const document = file.buffer;
             const imageFileName = `${Date.now()}`;
@@ -23,6 +22,7 @@ class ReportController extends CrudController {
                 imagePath: `reports/${imageFileName}.jpg`
             };
             const result = await this._service.saveOne({}, payload);
+            await MailerService.newReportEmail(payload.email, result.code);
             res.send({...result._doc, success: true});
         } catch (err) {
             next(err);

@@ -1,7 +1,6 @@
 module.exports = {
     type: 'string',
     required: [
-        'userId',
         'containerId',
         'title',
         'email',

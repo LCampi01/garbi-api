@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
     try {
         const token = header.replace('Bearer ', '');
         const {success, user} = await UserService.validateToken(token);
-        console.log(success, user);
         if (!success || user.deleted) {
             return res.status(401).send({message: errorMessages.UNAUTHORIZED, code: 401});
         }

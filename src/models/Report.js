@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
+const { v4: uuidv4 } = require('uuid');
 
 const StatusSchema = new Schema({
     status: {
@@ -20,14 +21,15 @@ const StatusSchema = new Schema({
 }, { _id: false });
 
 const ReportSchema = new Schema({
+    code: { type: String, unique: true },
     userId: {
         type: ObjectId,
-        default: null,
-        required: true
+        default: null
     },
     containerId: {
         type: String,
-        default: null
+        default: null,
+        required: true
     },
     managerId: {
         type: ObjectId,
@@ -90,5 +92,18 @@ const ReportSchema = new Schema({
         default: null
     }
 }, { collection: 'report' });
+
+ReportSchema.pre('save', function (next) {
+    if (!this.code) {
+        try {
+            this.code = 'CR' + uuidv4().split('-')[0];
+            next();
+        } catch (error) {
+            next(error);
+        }
+    } else {
+        next();
+    }
+});
 
 module.exports = model('Report', ReportSchema);
