@@ -1,9 +1,6 @@
 const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
-const {
-    Schema,
-    model
-} = mongoose;
+const { Schema, model } = mongoose;
 
 const ReportSchema = new Schema({
     userId: {
@@ -41,7 +38,7 @@ const ReportSchema = new Schema({
             type: String
         }
     },
-    imagePath: {type: String},
+    imagePath: { type: String },
     phone: {
         type: String
     },
@@ -51,14 +48,19 @@ const ReportSchema = new Schema({
     },
     status: {
         type: [{
-            status: String,
-            enum: [
-                'NUEVO',
-                'EN_REVISION',
-                'RESUELTO',
-                'RECHAZADO'
-            ],
-            updatedAt: Date
+            status: {
+                type: String,
+                enum: [
+                    'NUEVO',
+                    'EN_REVISION',
+                    'RESUELTO',
+                    'RECHAZADO'
+                ]
+            },
+            updatedAt: {
+                type: Date,
+                default: Date.now
+            }
         }]
     },
     type: {

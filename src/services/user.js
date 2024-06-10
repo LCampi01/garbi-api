@@ -116,7 +116,7 @@ class UserService extends Crud {
         try {
             const token = bearerToken.replace('Bearer ', '');
             const user = await jwt.verify(token, SECRET);
-            return { success: true, user };
+            return { success: true, ...user };
         } catch (err) {
             throw Error(err);
         }

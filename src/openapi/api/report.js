@@ -61,7 +61,20 @@ module.exports = {
             parameters: [],
             requestBody: {
                 description: 'create',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Report' } } }
+                content: {
+                    'multipart/form-data': {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                report: { $ref: '#/components/schemas/ReportPost' },
+                                image: {
+                                    type: 'string',
+                                    format: 'binary'
+                                }
+                            }
+                        }
+                    }
+                }
             },
             responses: {
                 200: {
