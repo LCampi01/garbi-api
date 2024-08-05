@@ -12,6 +12,10 @@ const ContainerSchema = new Schema({
         minlength: 6,
         maxlength: 6
     },
+    companyId: {
+        type: ObjectId,
+        required: true
+    },
     areaId: {
         type: ObjectId,
         required: true
@@ -57,6 +61,13 @@ const ContainerSchema = new Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    containerType: {
+        type: String,
+        required: true
+    },
+    lastRecolection: {
+        type: Date
     },
     deleted: {
         type: Boolean,

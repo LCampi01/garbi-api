@@ -5,10 +5,13 @@ module.exports = {
         'sensorId',
         'address',
         'coordinates',
-        'height'
+        'height',
+        'containerType',
+        'companyId'
     ],
     properties: {
         _id: { type: 'string' },
+        companyId: {type: 'string'},
         areaId: { type: 'string' },
         sensorId: { type: 'string' },
         address: {
@@ -29,6 +32,7 @@ module.exports = {
             required: ['lat', 'lng']
         },
         height: { type: 'number' },
+        containerType: { type: 'string' },
         battery: { type: 'number', default: 100 },
         capacity: { type: 'number', default: 0 },
         deleted: { type: 'boolean', default: false }

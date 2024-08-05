@@ -9,6 +9,7 @@ module.exports = {
         name: { type: 'string' },
         description: {type: 'string'},
         companyId: { type: 'string' },
+        color: { type: 'string' },
         coordinates: {
             type: 'array',
             items: {
