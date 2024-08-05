@@ -3,8 +3,10 @@ const { RouteController } = include('controllers');
 module.exports = router => {
     router.route('/')
         .post(RouteController.saveOne)
-        .get((...props) => RouteController
-            .fetch(...props, ['userId', 'managerId', 'containerId']));
+        .get((...props) => RouteController.fetch(...props, ['userId', 'managerId', 'containerId', 'companyId']));
+
+    router.route('/company_routes/:companyId')
+        .get(RouteController.fetchRoutes);
 
     router.route('/:_id')
         .delete(RouteController.deleteOne)

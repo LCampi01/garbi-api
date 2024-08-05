@@ -4,7 +4,7 @@ module.exports = router => {
     router.route('/')
         .post(ReportController.saveOneWithImage)
         .get((...props) => ReportController
-            .fetch(...props, ['status', 'userId']));
+            .fetch(...props, ['status', 'userId', 'companyId']));
 
     router.route('/report_in_revision')
         .post(ReportController.setReportInRevision);

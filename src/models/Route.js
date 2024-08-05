@@ -5,6 +5,8 @@ const {
     model
 } = mongoose;
 
+const ContainerSchema = require('./Container').schema;
+
 const RouteSchema = new Schema({
     collectorId: {
         type: [ObjectId],
@@ -14,10 +16,18 @@ const RouteSchema = new Schema({
         type: ObjectId,
         required: true
     },
-    coordinates: [{
-        lat: Number,
-        lng: Number
-    }],
+    companyId: {
+        type: ObjectId,
+        required: true
+    },
+    areaId: {
+        type: ObjectId,
+        required: true
+    },
+    containers: {
+        type: [ContainerSchema],
+        required: true
+    },
     status: {
         type: [{
             status: String,

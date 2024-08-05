@@ -22,6 +22,11 @@ module.exports = {
                     in: 'query',
                     name: 'capacity',
                     schema: { type: 'string' }
+                },
+                {
+                    in: 'query',
+                    name: 'companyId',
+                    schema: { type: 'string' }
                 }
             ],
             responses: {

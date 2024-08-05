@@ -17,6 +17,11 @@ module.exports = {
                     in: 'query',
                     name: 'userId',
                     schema: { type: 'string' }
+                },
+                {
+                    in: 'query',
+                    name: 'companyId',
+                    schema: { type: 'string' }
                 }
             ],
             responses: {

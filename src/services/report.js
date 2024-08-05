@@ -1,7 +1,7 @@
 const {Report: Model} = include('models');
 
 const Crud = require('./crud');
-const AwsService = require('./AwsService');
+const AwsService = require('./awsService');
 const MailerService = require('./mailer');
 const UserService = require('./user');
 const roles = require('../enums/roles');

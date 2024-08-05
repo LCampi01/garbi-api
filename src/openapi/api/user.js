@@ -7,7 +7,13 @@ module.exports = {
             summary: 'Get list of Users',
             description: 'Get list of Users',
             operationId: 'fetch',
-            parameters: [],
+            parameters: [
+                {
+                    in: 'query',
+                    name: 'companyId',
+                    schema: { type: 'string' }
+                }
+            ],
             responses: {
                 200: {
                     description: 'List of available Users',
