@@ -1,33 +1,18 @@
 module.exports = {
     type: 'object',
-    required: ['companyId', 'name', 'surname', 'phone', 'email', 'password', 'role'],
+    required: ['companyId', 'name', 'surname', 'personalPhone', 'personalEmail', 'companyPhone', 'companyEmail', 'role', 'workingShift'],
     properties: {
         _id: { type: 'string' },
         companyId: { type: 'string' },
         name: { type: 'string' },
         surname: { type: 'string' },
-        phone: { type: 'string' },
-        email: { type: 'string' },
+        personalPhone: { type: 'string' },
+        personalEmail: { type: 'string' },
+        companyPhone: { type: 'string' },
+        companyEmail: { type: 'string' },
         password: { type: 'string' },
         imagePath: { type: 'string' },
-        workingDay: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    day: { type: 'string' },
-                    startTime: {
-                        type: 'string',
-                        format: 'date-time'
-                    },
-                    endTime: {
-                        type: 'string',
-                        format: 'date-time'
-                    }
-                },
-                required: ['day', 'startTime', 'endTime']
-            }
-        },
+        workingShift: { type: 'string' },
         role: { type: 'string' }
     }
 };

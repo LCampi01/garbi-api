@@ -28,16 +28,25 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
+    companyPhone: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    companyEmail: {
+        type: String,
+        required: true,
+        unique: true
+    },
     password: {
+        type: String
+    },
+    imagePath: {
+        type: String
+    },
+    workingShift: {
         type: String,
         required: true
-    },
-    workingDay: {
-        type: [{
-            day: String,
-            startTime: Date,
-            endTime: Date
-        }]
     },
     role: {
         type: String,
