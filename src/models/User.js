@@ -18,12 +18,12 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    phone: {
+    personalPhone: {
         type: String,
         required: true,
         unique: true
     },
-    email: {
+    personalEmail: {
         type: String,
         required: true,
         unique: true

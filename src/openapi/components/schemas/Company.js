@@ -5,8 +5,7 @@ module.exports = {
         'cuit',
         'address',
         'phone',
-        'email',
-        'threshold'
+        'email'
     ],
     properties: {
         _id: { type: 'string' },
@@ -21,9 +20,10 @@ module.exports = {
                 department: { type: 'string' },
                 flat: { type: 'string' },
                 postalCode: { type: 'string' },
-                neighborhood: { type: 'string' }
+                neighborhood: { type: 'string' },
+                province: { type: 'string' }
             },
-            required: ['street', 'number', 'floor', 'department', 'flat', 'postalCode', 'neighborhood']
+            required: ['street', 'number', 'postalCode', 'neighborhood', 'province']
         },
         phone: { type: 'string' },
         email: { type: 'string' },
@@ -32,8 +32,7 @@ module.exports = {
             properties: {
                 full: { type: 'number' },
                 warning: { type: 'number' }
-            },
-            required: ['full', 'warning']
+            }
         }
     }
 };

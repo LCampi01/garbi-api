@@ -32,7 +32,10 @@ const CompanySchema = Schema({
             required: true
         },
         neighborhood: String,
-        province: String
+        province: {
+            type: String,
+            required: true
+        }
     },
     phone: {
         type: String,
