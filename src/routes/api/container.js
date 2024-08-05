@@ -9,6 +9,6 @@ module.exports = router => {
     router.route('/:_id')
         .delete(ContainerController.deleteOne)
         .put(ContainerController.saveOne)
-        .get(ContainerController.fetchOneByParams);
+        .get(ContainerController.fetchContainer);
     return router;
 };

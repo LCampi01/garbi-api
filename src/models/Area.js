@@ -22,6 +22,9 @@ const AreaSchema = new Schema({
         lat: Number,
         lng: Number
     }],
+    color: {
+        type: String
+    },
     deleted: {
         type: Boolean,
         default: false
