@@ -31,7 +31,8 @@ const CompanySchema = Schema({
             type: String,
             required: true
         },
-        neighborhood: String
+        neighborhood: String,
+        province: String
     },
     phone: {
         type: String,
@@ -46,11 +47,11 @@ const CompanySchema = Schema({
     threshold: {
         full: {
             type: Number,
-            required: true
+            default: 100
         },
         warning: {
             type: Number,
-            required: true
+            default: 80
         }
     },
     deleted: {
