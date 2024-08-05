@@ -4,10 +4,12 @@ module.exports = {
         'containerId',
         'title',
         'email',
-        'type'
+        'type',
+        'companyId'
     ],
     example: {
         userId: 'user123',
+        companyId: 'company123',
         containerId: 'container456',
         title: 'Contenedor roto',
         description: 'El contenedor en la esquina está roto y necesita reemplazo.',
@@ -26,6 +28,7 @@ module.exports = {
         type: 'object',
         properties: {
             userId: { type: 'string' },
+            companyId: { type: 'string' },
             containerId: { type: 'string' },
             title: { type: 'string' },
             description: { type: 'string' },

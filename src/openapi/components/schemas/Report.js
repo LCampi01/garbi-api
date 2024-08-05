@@ -5,10 +5,12 @@ module.exports = {
         'title',
         'description',
         'email',
-        'type'
+        'type',
+        'companyId'
     ],
     properties: {
         _id: { type: 'string' },
+        companyId: { type: 'string' },
         userId: { type: 'string' },
         containerId: { type: 'string' },
         managerId: { type: 'string' },

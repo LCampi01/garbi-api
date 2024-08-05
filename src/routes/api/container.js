@@ -4,7 +4,7 @@ module.exports = router => {
     router.route('/')
         .post(ContainerController.saveOne)
         .get((...props) => ContainerController
-            .fetch(...props, ['areaId', 'battery', 'capacity']));
+            .fetch(...props, ['areaId', 'battery', 'capacity', 'companyId']));
 
     router.route('/:_id')
         .delete(ContainerController.deleteOne)

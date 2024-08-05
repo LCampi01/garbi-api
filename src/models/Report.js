@@ -27,6 +27,10 @@ const ReportSchema = new Schema({
         type: ObjectId,
         default: null
     },
+    companyId: {
+        type: ObjectId,
+        required: true
+    },
     containerId: {
         type: String,
         default: null,

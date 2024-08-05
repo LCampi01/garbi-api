@@ -22,6 +22,11 @@ module.exports = {
                     in: 'query',
                     name: 'containerId',
                     schema: { type: 'string' }
+                },
+                {
+                    in: 'query',
+                    name: 'companyId',
+                    schema: { type: 'string' }
                 }
             ],
             responses: {
@@ -164,6 +169,37 @@ module.exports = {
             responses: {
                 200: {
                     description: 'Successful operation',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
+                },
+                400: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                },
+                default: {
+                    description: 'Invalid Request',
+                    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } }
+                }
+            }
+        }
+    },
+    [`${PATH}/{companyId}`]: {
+        get: {
+            security: [{ bearerAuth: [] }],
+            tags: ['Route'],
+            summary: 'Get a list of Routes of a specific company',
+            description: 'Get a Route based on its company id',
+            operationId: 'fetchByCompanyId',
+            parameters: [
+                {
+                    in: 'path',
+                    name: 'companyId',
+                    schema: { type: 'string' },
+                    required: true
+                }
+            ],
+            responses: {
+                200: {
+                    description: 'One Route',
                     content: { 'application/json': { schema: { $ref: '#/components/schemas/Route' } } }
                 },
                 400: {
