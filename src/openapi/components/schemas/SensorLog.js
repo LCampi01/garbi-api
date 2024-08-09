@@ -1,10 +1,10 @@
 module.exports = {
     type: 'object',
-    required: ['containerId', 'capacity', 'battery'],
+    required: ['containerId', 'distance', 'voltage'],
     properties: {
         _id: { type: 'string' },
         containerId: { type: 'string' },
-        capacity: { type: 'number' },
-        battery: { type: 'number' }
+        distance: { type: 'number' },
+        voltage: { type: 'number' }
     }
 };

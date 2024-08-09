@@ -1,9 +1,9 @@
 module.exports = {
     type: 'object',
-    required: ['sensorId', 'distance', 'battery'],
+    required: ['sensorId', 'distance', 'voltage'],
     properties: {
         sensorId: { type: 'string' },
         distance: { type: 'number' },
-        battery: { type: 'number' }
+        voltage: { type: 'number' }
     }
 };

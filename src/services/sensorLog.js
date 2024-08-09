@@ -11,15 +11,17 @@ class SensorLogService extends Crud {
 
     async saveLog(log, container) {
         const {_id, height} = container;
-        const { distance, battery } = log;
+        const { distance, voltage } = log;
 
         const capacity = Math.round(distance / height);
+
+        const battery = voltage<6? 0 : (voltage-6)*100/3;
 
         await ContainerService.saveOne({_id}, { $set: { battery, capacity } });
         return await this.saveOne({}, {
             containerId: _id,
-            capacity,
-            battery
+            distance,
+            voltage
         });
     }
 

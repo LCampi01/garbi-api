@@ -9,11 +9,11 @@ const SensorLogSchema = new Schema({
         type: String,
         required: true
     },
-    capacity: {
+    distance: {
         type: Number,
         required: true
     },
-    battery: {
+    voltage: {
         type: Number,
         required: true
     },
