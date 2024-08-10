@@ -24,8 +24,12 @@ class CommonController {
      * also fetch by filters if there is one
      * @param {Array} termKeys
      */
-    async fetch(req, res, next, termKeys) {
-        let filters = { deleted: { $ne: true } };
+    async fetch(req, res, next, termKeys, notFind) {
+        let filters = { deleted: { $ne: true }};
+        if (!notFind) {
+            filters.companyId = req.user.companyId;
+        }
+    
         const {
             term,
             skip,

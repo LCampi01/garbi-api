@@ -4,7 +4,7 @@ module.exports = router => {
     router.route('/')
         .post(CompanyController.saveOne)
         .get((...props) => CompanyController
-            .fetch(...props, ['name', 'cuit']));
+            .fetch(...props, ['name', 'cuit'], true));
 
     router.route('/:_id')
         .delete(CompanyController.deleteOne)
