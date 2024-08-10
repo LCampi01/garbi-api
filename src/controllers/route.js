@@ -10,7 +10,7 @@ class RouteController extends CrudController {
 
     async fetchRoutes(req, res, next) {
         try {
-            const response = await this._service.fetchRoutes(req.params.companyId);
+            const response = await this._service.fetchRoutes(req.user.companyId);
             res.send(response);
         } catch (err) {
             next(err);
