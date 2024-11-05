@@ -29,6 +29,7 @@ class CommonController {
         if (!notFind) {
             filters.companyId = req.user.companyId;
         }
+        console.log("🚀 ~ CommonController ~ fetch ~ filters:", filters)
     
         const {
             term,

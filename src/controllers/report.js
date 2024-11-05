@@ -8,6 +8,27 @@ class ReportController extends CrudController {
         this.setReportInRevision = this.setReportInRevision.bind(this);
         this.cancelReport = this.cancelReport.bind(this);
         this.closeReport = this.closeReport.bind(this);
+        this.fetchAllReports = this.fetchAllReports.bind(this);
+        this.fetchReport = this.fetchReport.bind(this);
+    }
+
+    async fetchAllReports(req, res, next) {
+        try {
+            const response = await this._service.fetchAllReports()
+            res.send(response);
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    
+    async fetchReport(req, res, next) {
+        try {
+            const response = await this._service.fetchReport(req.params._id)
+            res.send(response);
+        } catch (err) {
+            next(err)
+        }
     }
 
     async saveOneWithImage(req, res, next) {

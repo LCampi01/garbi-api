@@ -206,10 +206,10 @@ module.exports = {
                             type: 'object',
                             properties: {
                                 reportId: {
-                                    type: 'string'
+                                    type: 'number'
                                 },
                                 managerId: {
-                                    type: 'string'
+                                    type: 'number'
                                 }
                             }
                         }
@@ -246,10 +246,10 @@ module.exports = {
                             type: 'object',
                             properties: {
                                 reportId: {
-                                    type: 'string'
+                                    type: 'number'
                                 },
                                 managerId: {
-                                    type: 'string'
+                                    type: 'number'
                                 },
                                 rejected: {
                                     type: 'boolean'
@@ -292,11 +292,8 @@ module.exports = {
                             type: 'object',
                             properties: {
                                 reportId: {
-                                    type: 'string'
+                                    type: 'number'
                                 },
-                                userId: {
-                                    type: 'string'
-                                }
                             }
                         }
                     }

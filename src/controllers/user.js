@@ -11,6 +11,7 @@ class UserController extends CrudController {
         this.validateSession = this.validateSession.bind(this);
     }
 
+
     async register(req, res, next) {
         try{
             const user = req.body;

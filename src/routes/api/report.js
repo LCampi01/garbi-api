@@ -3,8 +3,7 @@ const { ReportController } = include('controllers');
 module.exports = router => {
     router.route('/')
         .post(ReportController.saveOneWithImage)
-        .get((...props) => ReportController
-            .fetch(...props, ['status', 'userId', 'companyId']));
+        .get(ReportController.fetchAllReports);
 
     router.route('/report_in_revision')
         .post(ReportController.setReportInRevision);
@@ -18,6 +17,6 @@ module.exports = router => {
     router.route('/:_id')
         .delete(ReportController.deleteOne)
         .put(ReportController.saveOne)
-        .get(ReportController.fetchOneByParams);
+        .get(ReportController.fetchReport);
     return router;
 };

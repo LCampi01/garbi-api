@@ -9,11 +9,11 @@ module.exports = {
         'companyId'
     ],
     properties: {
-        _id: { type: 'string' },
+        _id: { type: 'number' },
         companyId: { type: 'string' },
         userId: { type: 'string' },
         containerId: { type: 'string' },
-        managerId: { type: 'string' },
+        managerId: { type: 'number' },
         title: { type: 'string' },
         observation: { type: 'string' },
         description: { type: 'string' },

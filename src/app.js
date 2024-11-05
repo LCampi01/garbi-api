@@ -43,7 +43,6 @@ class App {
     }
 
     _configure() {
-        Mongoose.configure();
         this._middlewares();
         return this._routes();
     }
